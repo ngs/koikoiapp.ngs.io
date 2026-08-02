@@ -1,0 +1,77 @@
+{{ define "main" }}
+{{ $shotLang := cond (in .Site.Params.screenshotLanguages .Language.Lang) .Language.Lang "en" }}
+{{ $shots := printf "/img/screenshots/%s" $shotLang }}
+<div class="hero">
+    <div class="container">
+        <div class="hero-content">
+            <div class="hero-text">
+                <img src="/img/icon.png" alt="{{ .Site.Title }}" class="hero-icon">
+                <h1>{{ .Params.hero_title }}</h1>
+                <p class="hero-description">{{ .Params.hero_description }}</p>
+
+                <div class="app-download">
+                    <a href="{{ .Site.Params.appStoreURL }}" target="_blank" rel="noopener noreferrer">
+                        <img src="/img/appstore-banner/{{ .Language.Lang }}.svg"
+                             alt="{{ i18n "download_on_the_app_store" | default "Download on the App Store" }}"
+                             class="app-store-badge">
+                    </a>
+                </div>
+            </div>
+            <div class="hero-shot">
+                <img src="{{ $shots }}/chart-iphone.jpg"
+                     alt="{{ i18n "shot_chart" }}"
+                     class="hero-shot-image"
+                     width="660" height="1434">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="features-section">
+    <div class="container">
+        {{ .Content }}
+    </div>
+</div>
+
+<div class="gallery-section">
+    <div class="container">
+        <h2>{{ i18n "gallery_title" }}</h2>
+        <div class="gallery">
+            <figure class="gallery-item gallery-item-wide">
+                <img src="{{ $shots }}/chart-mac.jpg" alt="{{ i18n "shot_mac" }}" loading="lazy">
+                <figcaption>{{ i18n "shot_mac" }}</figcaption>
+            </figure>
+            <figure class="gallery-item">
+                <img src="{{ $shots }}/calendar-iphone.jpg" alt="{{ i18n "shot_calendar" }}" loading="lazy">
+                <figcaption>{{ i18n "shot_calendar" }}</figcaption>
+            </figure>
+            <figure class="gallery-item">
+                <img src="{{ $shots }}/locations-iphone.jpg" alt="{{ i18n "shot_locations" }}" loading="lazy">
+                <figcaption>{{ i18n "shot_locations" }}</figcaption>
+            </figure>
+            <figure class="gallery-item gallery-item-watch">
+                <img src="{{ $shots }}/tide-watch.png" alt="{{ i18n "shot_watch" }}" loading="lazy">
+                <figcaption>{{ i18n "shot_watch" }}</figcaption>
+            </figure>
+        </div>
+
+        <div class="app-download-bottom">
+            <p class="download-cta">{{ .Params.download_cta }}</p>
+            <a href="{{ .Site.Params.appStoreURL }}" target="_blank" rel="noopener noreferrer">
+                <img src="/img/appstore-banner/{{ .Language.Lang }}.svg"
+                     alt="{{ i18n "download_on_the_app_store" | default "Download on the App Store" }}"
+                     class="app-store-badge">
+            </a>
+        </div>
+    </div>
+</div>
+{{ end }}
+
+{{ define "fullwidth" }}
+{{ $shotLang := cond (in .Site.Params.screenshotLanguages .Language.Lang) .Language.Lang "en" }}
+<div class="visionos-screenshot-section">
+    <img src="/img/screenshots/{{ $shotLang }}/chart-vision.jpg"
+         alt="{{ i18n "shot_vision" }}"
+         class="visionos-screenshot">
+</div>
+{{ end }}

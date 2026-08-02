@@ -1,0 +1,32 @@
+baseURL = 'https://koikoiapp.ngs.io/'
+title = 'Koikoi'
+
+defaultContentLanguage = 'en'
+defaultContentLanguageInSubdir = false
+
+[languages]
+[languages.en]
+contentDir = "content/en"
+languageCode = "en"
+languageName = "English"
+weight = 1
+[languages.ja]
+contentDir = "content/ja"
+languageCode = "ja"
+languageName = "日本語"
+weight = 2
+
+[params]
+description = 'Koikoi is the classic hanafuda card game for iPhone, iPad, Mac and Apple Vision Pro. Nintendo-rule Koi-Koi with a search-based AI.'
+appStoreURL = 'https://apps.apple.com/app/koikoi-japanese-card-game/id6797163218'
+supportURL = 'https://github.com/ngs/koikoi-swift/issues'
+contactEmail = 'corp@littleapps.co.jp'
+# スクリーンショットを用意している言語。その他の言語は en にフォールバックする
+screenshotLanguages = ['en', 'de', 'es', 'fr', 'ja', 'ko', 'zh-hans']
+
+# タグ・カテゴリは使わないので空のタクソノミーで無効化する
+[taxonomies]
+
+[permalinks]
+[permalinks.page]
+privacy = "/privacy/"

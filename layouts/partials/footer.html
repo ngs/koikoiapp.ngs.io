@@ -1,0 +1,11 @@
+<footer class="site-footer">
+    <div class="container">
+        <div class="footer-content">
+            <p>&copy; {{ now.Year }} LittleApps Inc. {{ i18n "all_rights_reserved" | default "All rights reserved." }}</p>
+            <nav class="footer-nav">
+                <a href="{{ "/privacy/" | relLangURL }}">{{ i18n "privacy" | default "Privacy" }}</a>
+                <a href="{{ .Site.Params.supportURL }}" target="_blank" rel="noopener noreferrer">{{ i18n "support" | default "Support" }}</a>
+            </nav>
+        </div>
+    </div>
+</footer>

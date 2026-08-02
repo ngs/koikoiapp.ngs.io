@@ -1,0 +1,28 @@
+<header class="site-header">
+    <div class="container">
+        <div class="header-content">
+            <a href="{{ "/" | relLangURL }}" class="site-title">
+                <img src="/img/icon.png" alt="" class="site-title-icon">
+                {{ .Site.Title }}
+            </a>
+            <nav class="site-nav">
+                <ul class="nav-menu">
+                    <li><a href="{{ "/" | relLangURL }}">{{ i18n "home" | default "Home" }}</a></li>
+                    <li><a href="{{ "/privacy/" | relLangURL }}">{{ i18n "privacy" | default "Privacy" }}</a></li>
+                    <li><a href="{{ .Site.Params.supportURL }}" target="_blank" rel="noopener noreferrer">{{ i18n "support" | default "Support" }}</a></li>
+                </ul>
+                {{ if hugo.IsMultilingual }}
+                <div class="language-selector">
+                    <select onchange="window.location.href = this.value;" aria-label="{{ i18n "language" | default "Language" }}">
+                        {{ range .Site.Home.AllTranslations }}
+                        <option value="{{ .RelPermalink }}" {{ if eq .Language.Lang $.Site.Language.Lang }}selected{{ end }}>
+                            {{ .Language.LanguageName }}
+                        </option>
+                        {{ end }}
+                    </select>
+                </div>
+                {{ end }}
+            </nav>
+        </div>
+    </div>
+</header>
