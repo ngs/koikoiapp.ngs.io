@@ -15,16 +15,19 @@ contentDir = "content/ja"
 languageCode = "ja"
 languageName = "日本語"
 weight = 2
+[languages.ja.params]
+description = '花札の定番「こいこい」を iPhone / iPad / Mac / Apple Vision Pro で。定番ルール・4 段階の AI・美しい札。'
 
 [params]
-description = 'Koikoi is the classic hanafuda card game for iPhone, iPad, Mac and Apple Vision Pro. Nintendo-rule Koi-Koi with a search-based AI.'
+description = 'Koi-Koi, the classic hanafuda card game, for iPhone, iPad, Mac and Apple Vision Pro. Standard rules, four AI levels, beautifully drawn cards.'
 appStoreURL = 'https://apps.apple.com/app/koikoi-japanese-card-game/id6797163218'
 supportURL = 'https://github.com/ngs/koikoi-swift/issues'
 contactEmail = 'corp@littleapps.co.jp'
-# スクリーンショットを用意している言語。その他の言語は en にフォールバックする
-screenshotLanguages = ['en', 'de', 'es', 'fr', 'ja', 'ko', 'zh-hans']
+ogImage = '/img/og.png'
+# Languages that have their own screenshots; every other language falls back to en.
+screenshotLanguages = ['en', 'ja']
 
-# タグ・カテゴリは使わないので空のタクソノミーで無効化する
+# Tags and categories are unused, so disable them with an empty taxonomy table.
 [taxonomies]
 
 [permalinks]

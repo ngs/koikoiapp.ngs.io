@@ -1,77 +1,111 @@
 {{ define "main" }}
 {{ $shotLang := cond (in .Site.Params.screenshotLanguages .Language.Lang) .Language.Lang "en" }}
 {{ $shots := printf "/img/screenshots/%s" $shotLang }}
-<div class="hero">
-    <div class="container">
-        <div class="hero-content">
-            <div class="hero-text">
-                <img src="/img/icon.png" alt="{{ .Site.Title }}" class="hero-icon">
-                <h1>{{ .Params.hero_title }}</h1>
-                <p class="hero-description">{{ .Params.hero_description }}</p>
+{{/* Screenshot used for each platform section, keyed by the `id` in the front matter. */}}
+{{ $platformShots := dict
+    "iphone" (dict "file" "iphone-landscape.webp" "width" 1440 "height" 662 "alt" "shot_iphone_landscape")
+    "ipad"   (dict "file" "ipad-game.webp"        "width" 1032 "height" 1376 "alt" "shot_ipad")
+    "mac"    (dict "file" "mac-translucent.webp"  "width" 1440 "height" 900  "alt" "shot_mac_translucent")
+    "vision" (dict "file" "vision-game.webp"      "width" 1920 "height" 1080 "alt" "shot_vision")
+}}
 
-                <div class="app-download">
-                    <a href="{{ .Site.Params.appStoreURL }}" target="_blank" rel="noopener noreferrer">
-                        <img src="/img/appstore-banner/{{ .Language.Lang }}.svg"
-                             alt="{{ i18n "download_on_the_app_store" | default "Download on the App Store" }}"
-                             class="app-store-badge">
-                    </a>
-                </div>
-            </div>
-            <div class="hero-shot">
-                <img src="{{ $shots }}/chart-iphone.jpg"
-                     alt="{{ i18n "shot_chart" }}"
-                     class="hero-shot-image"
-                     width="660" height="1434">
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="features-section">
-    <div class="container">
-        {{ .Content }}
-    </div>
-</div>
-
-<div class="gallery-section">
-    <div class="container">
-        <h2>{{ i18n "gallery_title" }}</h2>
-        <div class="gallery">
-            <figure class="gallery-item gallery-item-wide">
-                <img src="{{ $shots }}/chart-mac.jpg" alt="{{ i18n "shot_mac" }}" loading="lazy">
-                <figcaption>{{ i18n "shot_mac" }}</figcaption>
-            </figure>
-            <figure class="gallery-item">
-                <img src="{{ $shots }}/calendar-iphone.jpg" alt="{{ i18n "shot_calendar" }}" loading="lazy">
-                <figcaption>{{ i18n "shot_calendar" }}</figcaption>
-            </figure>
-            <figure class="gallery-item">
-                <img src="{{ $shots }}/locations-iphone.jpg" alt="{{ i18n "shot_locations" }}" loading="lazy">
-                <figcaption>{{ i18n "shot_locations" }}</figcaption>
-            </figure>
-            <figure class="gallery-item gallery-item-watch">
-                <img src="{{ $shots }}/tide-watch.png" alt="{{ i18n "shot_watch" }}" loading="lazy">
-                <figcaption>{{ i18n "shot_watch" }}</figcaption>
-            </figure>
-        </div>
-
-        <div class="app-download-bottom">
-            <p class="download-cta">{{ .Params.download_cta }}</p>
-            <a href="{{ .Site.Params.appStoreURL }}" target="_blank" rel="noopener noreferrer">
+<section class="hero">
+    <div class="container hero-inner">
+        <div class="hero-text">
+            <img src="/img/icon.png" alt="" class="hero-icon" width="1024" height="1024">
+            <p class="hero-eyebrow">{{ .Params.hero_eyebrow }}</p>
+            <h1>{{ .Params.hero_title }}</h1>
+            <p class="hero-description">{{ .Params.hero_description }}</p>
+            <a class="app-store-link" href="{{ .Site.Params.appStoreURL }}" target="_blank" rel="noopener noreferrer">
                 <img src="/img/appstore-banner/{{ .Language.Lang }}.svg"
-                     alt="{{ i18n "download_on_the_app_store" | default "Download on the App Store" }}"
+                     alt="{{ i18n "download_on_the_app_store" }}"
                      class="app-store-badge">
             </a>
         </div>
+        <div class="hero-visual">
+            <div class="hero-cards" aria-hidden="true">
+                <img src="/img/cards/susuki-tsuki.webp" alt="" class="hero-card hero-card-1" width="374" height="600">
+                <img src="/img/cards/sakura-maku.webp" alt="" class="hero-card hero-card-2" width="374" height="600">
+                <img src="/img/cards/matsu-tsuru.webp" alt="" class="hero-card hero-card-3" width="374" height="600">
+            </div>
+            <img src="{{ $shots }}/iphone-game.webp"
+                 alt="{{ i18n "shot_iphone_game" }}"
+                 class="hero-phone" width="660" height="1434">
+        </div>
     </div>
-</div>
+</section>
+
+<section class="features">
+    <div class="container">
+        <h2>{{ .Params.features_title }}</h2>
+        <ul class="feature-grid">
+            {{ range .Params.features }}
+            <li class="feature-card">
+                <span class="feature-icon feature-icon-{{ .icon }}" aria-hidden="true"></span>
+                <h3>{{ .title }}</h3>
+                <p>{{ .text }}</p>
+            </li>
+            {{ end }}
+        </ul>
+    </div>
+</section>
+
+<section class="platforms">
+    <div class="container">
+        <h2>{{ .Params.platforms_title }}</h2>
+        {{ range .Params.platforms }}
+        {{ $shot := index $platformShots .id }}
+        <div class="platform platform-{{ .id }}">
+            <div class="platform-text">
+                <h3>{{ .title }}</h3>
+                <p>{{ .text }}</p>
+            </div>
+            <div class="platform-shot">
+                <img src="{{ $shots }}/{{ $shot.file }}"
+                     alt="{{ i18n $shot.alt }}"
+                     width="{{ $shot.width }}" height="{{ $shot.height }}" loading="lazy">
+            </div>
+        </div>
+        {{ end }}
+    </div>
+</section>
+
+<section class="themes">
+    <div class="container">
+        <h2>{{ .Params.themes_title }}</h2>
+        <p class="themes-text">{{ .Params.themes_text }}</p>
+        <div class="theme-strip">
+            <figure>
+                <img src="{{ $shots }}/iphone-setup.webp" alt="{{ $.Params.themes_title }}" width="660" height="1434" loading="lazy">
+            </figure>
+            <figure>
+                <img src="{{ $shots }}/iphone-game.webp" alt="{{ i18n "shot_iphone_game" }}" width="660" height="1434" loading="lazy">
+            </figure>
+            <figure>
+                <img src="{{ $shots }}/iphone-night.webp" alt="{{ i18n "shot_iphone_night" }}" width="660" height="1434" loading="lazy">
+            </figure>
+        </div>
+    </div>
+</section>
+
+<section class="download">
+    <div class="container">
+        <p class="download-cta">{{ .Params.download_cta }}</p>
+        <a class="app-store-link" href="{{ .Site.Params.appStoreURL }}" target="_blank" rel="noopener noreferrer">
+            <img src="/img/appstore-banner/{{ .Language.Lang }}.svg"
+                 alt="{{ i18n "download_on_the_app_store" }}"
+                 class="app-store-badge" loading="lazy">
+        </a>
+    </div>
+</section>
 {{ end }}
 
 {{ define "fullwidth" }}
 {{ $shotLang := cond (in .Site.Params.screenshotLanguages .Language.Lang) .Language.Lang "en" }}
-<div class="visionos-screenshot-section">
-    <img src="/img/screenshots/{{ $shotLang }}/chart-vision.jpg"
+<figure class="vision-full">
+    <img src="/img/screenshots/{{ $shotLang }}/vision-board.webp"
          alt="{{ i18n "shot_vision" }}"
-         class="visionos-screenshot">
-</div>
+         class="vision-full-image" width="1920" height="1080" loading="lazy">
+    <figcaption>{{ i18n "shot_vision" }}</figcaption>
+</figure>
 {{ end }}
